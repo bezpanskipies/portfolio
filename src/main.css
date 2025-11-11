@@ -1,0 +1,62 @@
+/* ====== GLOBALNE STYLOWANIE ====== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", Arial, sans-serif;
+  background-color: #0d0d0d; /* bardzo ciemne tło */
+  color: #eaeaea; /* jasny tekst */
+  line-height: 1.6;
+}
+
+/* ====== SEKCJA HERO ====== */
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 10%;
+  background-color: #111;
+  gap: 60px;
+  border-bottom: 1px solid #222;
+}
+
+.hero__left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero__photo {
+  width: 280px;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.hero__right {
+  flex: 2;
+}
+
+.hero__name {
+  font-size: 2.8rem;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.hero__role {
+  font-size: 1.3rem;
+  color: #999;
+  margin-bottom: 20px;
+}
+
+.hero__intro {
+  font-size: 1.1rem;
+  max-width: 500px;
+  color: #ccc;
+}

@@ -1,0 +1,141 @@
+/* src/components/about.css */
+
+.about {
+  display: flex;
+  justify-content: center;
+  padding: 120px 4% 100px;
+  background: linear-gradient(180deg, rgba(8, 8, 12, 1), rgba(12, 12, 18, 1));
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.about__inner {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 60px;
+  max-width: 1100px;
+  width: 100%;
+}
+
+/* TEXT PART */
+.about__text {
+  flex: 1;
+}
+
+.about__title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #fff;
+  background: linear-gradient(
+    90deg,
+    rgba(88, 110, 255, 1),
+    rgba(255, 80, 180, 1)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.about__lead {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.about__desc {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* SKILLS PART */
+.about__skills {
+  flex: 0.8;
+}
+
+.about__skills-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 18px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.skills-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+.skill {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  cursor: default;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(4px);
+}
+
+.skill:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(88, 110, 255, 0.8),
+    rgba(255, 80, 180, 0.8)
+  );
+  border-color: transparent;
+  box-shadow: 0 6px 16px rgba(88, 110, 255, 0.2);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .about__inner {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .about__skills {
+    flex: 1;
+  }
+
+  .about {
+    padding: 90px 6%;
+  }
+}
+
+.skill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: default;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(4px);
+}
+
+.skill__icon {
+  font-size: 3rem; /* 🔥 tu zmieniasz wielkość ikon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color, #61dafb); /* domyślny kolor np. React */
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.skill__icon:hover {
+  transform: scale(1.15);
+}
+
+.skill__name {
+  font-size: 0.95rem;
+}
