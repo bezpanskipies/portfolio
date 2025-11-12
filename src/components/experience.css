@@ -143,21 +143,67 @@
 }
 
 /* responsywność */
+/* MOBILE: ujednolicone zachowanie timeline - wszystkie itemy pełna szerokość */
 @media (max-width: 780px) {
   .timeline::before {
     left: 20px;
   }
 
+  /* każdy item zajmuje 100% i jest tekstowo wyrównany do lewej */
   .timeline-item {
     width: 100%;
-    padding-left: 60px;
+    left: 0 !important; /* nadpisujemy wcześniejsze left:50% itp. */
+    padding-left: 64px; /* zostawia miejsce na dot / linię */
+    padding-right: 20px;
     text-align: left;
   }
 
-  .timeline-item.left .timeline-dot,
-  .timeline-item.right .timeline-dot {
-    left: 0;
+  /* jeśli wcześniej były klasy left/right - ujednolicamy je */
+  .timeline-item.left,
+  .timeline-item.right {
+    transform: none;
   }
+
+  /* kropki (dot) ustawiamy po lewej, przy linii */
+  .timeline-item .timeline-dot {
+    left: 0 !important;
+    right: auto;
+  }
+
+  /* box z treścią lekko odsunięty, niech nie ma marginów rozpychających layout */
+  .timeline-box {
+    margin-left: 12px;
+    margin-right: 0;
+  }
+
+  /* upewnij się, że content nie rozpycha rodzica */
+  .timeline-content {
+    display: block; /* ułatwia zawijanie treści na mobile */
+    gap: 12px;
+  }
+
+  /* dopasuj rozmiar kropek i obrazków jeśli trzeba */
+  .timeline-dot {
+    top: 6px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .timeline-dot img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.timeline-item {
+  width: 100%;
+  padding-left: 60px;
+  text-align: left;
+}
+
+.timeline-item.left .timeline-dot,
+.timeline-item.right .timeline-dot {
+  left: 0;
 }
 
 .timeline-dot {
