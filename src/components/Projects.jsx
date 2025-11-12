@@ -75,7 +75,7 @@ const PROJECTS = [
     id: 6,
     title: "Kappa Nihongo",
     subtitle: "Strona do nauki japońskiego",
-    img: "https://picsum.photos/seed/p6/1200/800",
+    img: "images/kappalogo.jpeg",
     href: "#",
     live: null,
     repo: null,
