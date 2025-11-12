@@ -1,3 +1,6 @@
+/* src/components/experience.css */
+
+/* --- Sekcja: Experience / Journey --- */
 .experience {
   padding: 90px 4% 120px;
   position: relative;
@@ -11,14 +14,16 @@
   margin-bottom: 60px;
 }
 
-/* oś główna */
+/* --- Oś główna (timeline) --- */
 .timeline {
   position: relative;
   max-width: 900px;
   margin: 0 auto;
   padding: 0 20px;
+  box-sizing: border-box;
 }
 
+/* pionowa linia */
 .timeline::before {
   content: "";
   position: absolute;
@@ -32,13 +37,15 @@
     rgba(255, 80, 180, 0.5)
   );
   transform: translateX(-50%);
+  border-radius: 2px;
 }
 
-/* itemy */
+/* --- elementy timeline --- */
 .timeline-item {
   position: relative;
   width: 50%;
   padding: 20px 40px;
+  box-sizing: border-box;
 }
 
 .timeline-item.left {
@@ -48,16 +55,19 @@
 
 .timeline-item.right {
   left: 50%;
+  text-align: left;
 }
 
+/* wrapper treści (używany do layoutu dot + box) */
 .timeline-content {
   display: flex;
   align-items: flex-start;
   gap: 14px;
   position: relative;
+  box-sizing: border-box;
 }
 
-/* punkt (ikona / logo) */
+/* --- punkt (kropka/ikonka) --- */
 .timeline-dot {
   position: absolute;
   top: 10px;
@@ -69,6 +79,7 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 0 25px rgba(88, 110, 255, 0.2);
+  transition: box-shadow 0.35s ease, transform 0.25s ease;
 }
 
 .timeline-dot span {
@@ -82,7 +93,16 @@
   filter: brightness(1.2);
 }
 
-/* box */
+/* pozycjonowanie kropek względem osi (desktop) */
+.timeline-item.left .timeline-dot {
+  right: -26px;
+}
+
+.timeline-item.right .timeline-dot {
+  left: -26px;
+}
+
+/* --- box z treścią --- */
 .timeline-box {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -90,6 +110,7 @@
   padding: 20px;
   width: 100%;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
 }
 
 .timeline-year {
@@ -133,57 +154,57 @@
   color: #9ab3ff;
 }
 
-/* pozycjonowanie kropek względem osi */
-.timeline-item.left .timeline-dot {
-  right: -26px;
+/* --- aktywny punkt (efekt podświetlenia) --- */
+.timeline-dot.active,
+.timeline-dot:where(.active) {
+  box-shadow: 0 0 25px rgba(88, 110, 255, 0.8), 0 0 50px rgba(255, 80, 180, 0.4);
+  transform: scale(1.06);
 }
 
-.timeline-item.right .timeline-dot {
-  left: -26px;
+/* drobne dopasowania do wyglądu (mniejsze ekrany) */
+@media (max-width: 980px) {
+  .timeline-item {
+    padding: 18px 28px;
+  }
+  .timeline-box {
+    padding: 16px;
+  }
+  .timeline::before {
+    left: 50%;
+  }
 }
 
-/* responsywność */
-/* MOBILE: ujednolicone zachowanie timeline - wszystkie itemy pełna szerokość */
+/* --- MOBILE: ujednolicone zachowanie timeline --- */
 @media (max-width: 780px) {
+  .timeline {
+    padding: 0 12px;
+  }
+
+  /* linia przeniesiona bliżej lewej krawędzi */
   .timeline::before {
     left: 20px;
+    transform: none;
   }
 
   /* każdy item zajmuje 100% i jest tekstowo wyrównany do lewej */
   .timeline-item {
     width: 100%;
-    left: 0 !important; /* nadpisujemy wcześniejsze left:50% itp. */
-    padding-left: 64px; /* zostawia miejsce na dot / linię */
+    left: 0 !important; /* nadpisujemy desktopowe left */
+    padding-left: 64px; /* miejsce na dot / linię */
     padding-right: 20px;
     text-align: left;
   }
 
-  /* jeśli wcześniej były klasy left/right - ujednolicamy je */
+  /* ujednolicamy klasy left/right — bez przesunięć */
   .timeline-item.left,
   .timeline-item.right {
     transform: none;
   }
 
-  /* kropki (dot) ustawiamy po lewej, przy linii */
+  /* ustawienie kropek przy linii (po lewej) */
   .timeline-item .timeline-dot {
     left: 0 !important;
     right: auto;
-  }
-
-  /* box z treścią lekko odsunięty, niech nie ma marginów rozpychających layout */
-  .timeline-box {
-    margin-left: 12px;
-    margin-right: 0;
-  }
-
-  /* upewnij się, że content nie rozpycha rodzica */
-  .timeline-content {
-    display: block; /* ułatwia zawijanie treści na mobile */
-    gap: 12px;
-  }
-
-  /* dopasuj rozmiar kropek i obrazków jeśli trzeba */
-  .timeline-dot {
     top: 6px;
     width: 44px;
     height: 44px;
@@ -193,36 +214,51 @@
     width: 24px;
     height: 24px;
   }
-}
 
-.timeline-item {
-  width: 100%;
-  padding-left: 60px;
-  text-align: left;
-}
-
-.timeline-item.left .timeline-dot,
-.timeline-item.right .timeline-dot {
-  left: 0;
-}
-
-.timeline-dot {
-  transition: box-shadow 0.4s ease, transform 0.3s ease;
-}
-
-.timeline-dot.active {
-  box-shadow: 0 0 25px rgba(88, 110, 255, 0.8), 0 0 50px rgba(255, 80, 180, 0.4);
-}
-
-@media (max-width: 780px) {
-  .timeline::before {
-    left: 20px;
-  } /* już masz */
-  .timeline-item {
-    padding-left: 64px;
-    padding-right: 20px;
-  }
+  /* box z treścią lekko odsunięty, nie rozpycha layoutu */
   .timeline-box {
     margin-left: 12px;
+    margin-right: 0;
+  }
+
+  /* na mobile ułatwiamy łamanie treści */
+  .timeline-content {
+    display: block;
+    gap: 12px;
+  }
+
+  /* jeśli jakieś elementy miały float/absolute wewnątrz box - upewniamy się, że mieszczą się */
+  .timeline-box * {
+    max-width: 100%;
+    box-sizing: border-box;
+    word-wrap: break-word;
+  }
+}
+
+/* dodatkowe drobne poprawki by uniknąć overflow */
+.timeline-item,
+.timeline-box,
+.timeline-content {
+  min-width: 0;
+}
+
+/* estetyczne responsywne skaliowanie fontów (opcjonalne) */
+@media (max-width: 420px) {
+  .experience__title {
+    font-size: 1.6rem;
+    margin-bottom: 40px;
+  }
+  .timeline-box {
+    padding: 14px;
+  }
+  .timeline-year {
+    font-size: 0.85rem;
+  }
+  .timeline-title {
+    font-size: 1rem;
+  }
+  .timeline-desc {
+    font-size: 0.92rem;
+    line-height: 1.45;
   }
 }
