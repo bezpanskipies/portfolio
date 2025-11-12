@@ -1,7 +1,12 @@
-// src/components/Contact.jsx
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { FaInstagram, FaGithub, FaEnvelope, FaCopy } from "react-icons/fa";
+import {
+  FaInstagram,
+  FaGithub,
+  FaEnvelope,
+  FaCopy,
+  FaLinkedin,
+} from "react-icons/fa";
 import "./contact.css";
 
 export default function Contact() {
@@ -9,6 +14,7 @@ export default function Contact() {
   const INSTAGRAM =
     "https://www.instagram.com/bezpanski_pies/?igsh=aGkya3R0dDJ2Zmp6&utm_source=qr";
   const GITHUB = "https://github.com";
+  const LINKEDIN = "https://www.linkedin.com/in/grzegorz-wylegala/";
 
   const [copyText, setCopyText] = useState("Kopiuj email");
   const [form, setForm] = useState({ name: "", from: "", message: "" });
@@ -119,6 +125,20 @@ export default function Contact() {
                 <div className="contact__card-body">
                   github.com/bezpanskipies
                 </div>
+              </div>
+            </a>
+
+            {/* LinkedIn */}
+            <a
+              className="contact__card contact__card--link"
+              href={LINKEDIN}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaLinkedin className="contact__icon" />
+              <div>
+                <div className="contact__card-title">LinkedIn</div>
+                <div className="contact__card-body">grzegorz-wylegala</div>
               </div>
             </a>
           </div>
