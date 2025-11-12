@@ -167,3 +167,16 @@
 .timeline-dot.active {
   box-shadow: 0 0 25px rgba(88, 110, 255, 0.8), 0 0 50px rgba(255, 80, 180, 0.4);
 }
+
+@media (max-width: 780px) {
+  .timeline::before {
+    left: 20px;
+  } /* już masz */
+  .timeline-item {
+    padding-left: 64px;
+    padding-right: 20px;
+  }
+  .timeline-box {
+    margin-left: 12px;
+  }
+}

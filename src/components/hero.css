@@ -128,3 +128,55 @@
     transform: translateX(-12%) rotate(0deg);
   }
 }
+
+/* Hero wrapper */
+.hero {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  padding: 80px 6%;
+  position: relative;
+  z-index: 0;
+}
+
+/* Photo wrapper responsywny */
+.hero__photo-wrapper {
+  width: clamp(180px, 30vw, 320px); /* płynnie od 180px do 320px */
+  height: auto;
+  aspect-ratio: 4 / 5; /* zachowaj proporcje */
+  border-radius: 1.5rem;
+  overflow: hidden;
+  transition: transform 0.35s ease;
+}
+
+/* zdjęcie dopasowane do wrappera */
+.hero__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Tekst po prawej - zachowaj odstęp i responsywność */
+.hero__right {
+  flex: 1 1 320px;
+  min-width: 0; /* ważne, żeby tekst mógł się zawinąć */
+}
+
+/* Mniejsze ekrany */
+@media (max-width: 880px) {
+  .hero {
+    flex-direction: column;
+    padding: 48px 5% 56px;
+    gap: 22px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero__right {
+    width: 100%;
+  }
+  .hero__photo-wrapper {
+    width: clamp(160px, 34vw, 260px);
+  }
+}

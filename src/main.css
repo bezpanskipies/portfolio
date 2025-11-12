@@ -6,6 +6,49 @@
   box-sizing: border-box;
 }
 
+/* GLOBAL RESPONSIVE BASE */
+html,
+body {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Container: responsywny padding i max-width */
+.container {
+  max-width: 1100px; /* desktop max */
+  margin: 0 auto;
+  padding: 0 16px; /* bezpieczny padding po bokach */
+}
+
+/* Responsywne typy (przykładowo) */
+:root {
+  --fs-h1: clamp(1.6rem, 2.8vw, 2.8rem);
+  --fs-body: clamp(0.95rem, 1.6vw, 1.05rem);
+}
+
+h1 {
+  font-size: var(--fs-h1);
+}
+body,
+p,
+input,
+button {
+  font-size: var(--fs-body);
+}
+
+img,
+picture,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 body {
   font-family: "Inter", Arial, sans-serif;
   background-color: #0d0d0d; /* bardzo ciemne tło */
