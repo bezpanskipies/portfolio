@@ -75,7 +75,7 @@ const PROJECTS = [
     id: 6,
     title: "Kappa Nihongo",
     subtitle: "Strona do nauki japońskiego",
-    img: "images/kappalogo.jpeg",
+    img: "src/assets/kappalogo.jpeg",
     href: "#",
     live: null,
     repo: null,
