@@ -205,3 +205,90 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* about.css (pełny lub dopisz poniższe fragmenty do istniejącego pliku) */
+
+/* --- (Twoje wcześniejsze reguły sekcji about/... powinny zostać bez zmian) --- */
+
+/* Zadbajmy, żeby hover działał na kontenerze ikon, a nie na pojedynczych svg */
+.skill:hover .skill__icon {
+  transform: scale(1.08);
+  /* zmiana koloru ikon na hover (opcjonalna) */
+  color: inherit;
+}
+
+/* Upewnij się, że transformacje mają środek jako punkt odniesienia */
+.skill__icon {
+  transform-origin: center center;
+}
+
+/* MULTI-ICONS: wersja dla HTML & CSS (dwie ikony obok siebie) */
+.multi-icons {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  /* rozmiar kontenera z ikonami (dostosuj jeśli chcesz) */
+  width: 44px;
+  height: 44px;
+  line-height: 1;
+  transform-origin: center center;
+}
+
+/* Normalizacja svg wewnątrz multi-icons: używamy em, aby dziedziczyły rozmiar kontenera */
+.multi-icons svg {
+  width: 1.1em;
+  height: 1.1em;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  /* usuń marginy, paddingi, itp. */
+  margin: 0;
+  padding: 0;
+  transform-origin: center center;
+}
+
+/* Jeśli chcesz, żeby obie ikony zmieniały kolor na hover kafelka: */
+.skill:hover .multi-icons svg {
+  color: #ffffff; /* lub inny kolor; można też użyć mix-blend-mode, filtrowania itp. */
+  filter: none;
+}
+
+/* Opcjonalna korekta wielkości ikon globalnie (jeśli nadal za duże/małe) */
+.skill__icon > svg,
+.skill__icon svg {
+  width: 40px;
+  height: 40px;
+  display: block;
+  vertical-align: middle;
+}
+
+/* Jeżeli wcześniej miałeś :hover transform na .skill__icon:keep it but przenieś tu aby działało jednorodnie */
+.skill__icon {
+  transition: transform 0.18s ease, color 0.22s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Przywróć normalne zachowanie tekstu obok ikon (brak przesunięć) */
+.skill__name {
+  white-space: nowrap;
+}
+
+/* --- responsywne dopasowania (jeśli trzeba) --- */
+@media (max-width: 600px) {
+  .multi-icons {
+    width: 36px;
+    height: 36px;
+  }
+  .multi-icons svg {
+    width: 1em;
+    height: 1em;
+  }
+  .skill__icon > svg,
+  .skill__icon svg {
+    width: 32px;
+    height: 32px;
+  }
+}

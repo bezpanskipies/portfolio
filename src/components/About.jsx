@@ -44,7 +44,7 @@ export default function About() {
           </h2>
 
           <p className="about__lead">
-            Cześć — jestem <strong>Grzegorz</strong>, fullstack developer
+            Cześć — jestem <strong>Grzegorz</strong>, frontend developer
             specjalizujący się w budowaniu interfejsów z użyciem <em>React</em>.
             Projektuję przejrzyste, responsywne i wydajne aplikacje, dbając o
             dobre doświadczenie użytkownika.
