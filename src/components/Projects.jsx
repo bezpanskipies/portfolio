@@ -2,6 +2,7 @@
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./projects.css";
+import Kappa from "../assets/kappalogo.jpeg"; // ścieżka względem pliku Projects.jsx
 
 /**
  * DANE TESTOWE - zastąp własnymi (img może być lokalnym importem z /src/assets lub URL)
@@ -75,7 +76,7 @@ const PROJECTS = [
     id: 6,
     title: "Kappa Nihongo",
     subtitle: "Strona do nauki japońskiego",
-    img: "src/assets/kappalogo.jpeg",
+    img: Kappa,
     href: "#",
     live: null,
     repo: null,
