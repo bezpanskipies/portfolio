@@ -1,4 +1,4 @@
-/* src/components/about.css */
+/* about.css */
 
 .about {
   display: flex;
@@ -6,6 +6,7 @@
   padding: 120px 4% 100px;
   background: linear-gradient(180deg, rgba(8, 8, 12, 1), rgba(12, 12, 18, 1));
   color: rgba(255, 255, 255, 0.9);
+  box-sizing: border-box;
 }
 
 .about__inner {
@@ -15,6 +16,7 @@
   gap: 60px;
   max-width: 1100px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 /* TEXT PART */
@@ -61,42 +63,93 @@
   color: rgba(255, 255, 255, 0.9);
 }
 
+/* --- GRID: równy rozkład kafelków umiejętności --- */
 .skills-list {
   list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
   padding: 0;
   margin: 0;
+  display: grid;
+  gap: 12px;
+  /* auto-fit zapewnia, że kafelki rozkładają się równo i dopasowują się do szerokości */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  align-items: stretch;
+  box-sizing: border-box;
 }
 
+/* pojedynczy skill - jednolita wysokość i wyrównanie */
 .skill {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   color: #fff;
-  padding: 8px 14px;
+  padding: 12px 16px;
   border-radius: 12px;
-  font-size: 0.95rem;
+  font-size: 1rem;
   cursor: default;
-  transition: all 0.25s ease;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
   backdrop-filter: blur(4px);
+  min-height: 64px; /* zapewnia spójne wysokości */
+  box-sizing: border-box;
 }
 
+/* hover efekt */
 .skill:hover {
   background: linear-gradient(
     90deg,
-    rgba(88, 110, 255, 0.8),
-    rgba(255, 80, 180, 0.8)
+    rgba(88, 110, 255, 0.85),
+    rgba(255, 80, 180, 0.85)
   );
   border-color: transparent;
-  box-shadow: 0 6px 16px rgba(88, 110, 255, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  transform: translateY(-3px);
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
+/* ikona */
+.skill__icon {
+  font-size: 2.4rem; /* duże na desktopie */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color, #61dafb);
+  transition: transform 0.18s ease, color 0.25s ease;
+  line-height: 1;
+  width: 40px;
+  height: 40px;
+}
+
+/* jeśli ikona to kombinacja (HTML & CSS) - ułóż obok siebie */
+.multi-icons {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+}
+
+.multi-icons svg {
+  width: 1.1em;
+  height: 1.1em;
+  vertical-align: middle;
+}
+
+/* delikatna animacja przy hoverie na ikonie */
+.skill__icon:hover {
+  transform: scale(1.08);
+}
+
+/* nazwa umiejętności */
+.skill__name {
+  font-size: 0.98rem;
+  color: inherit;
+}
+
+/* RESPONSYWNE DOPASOWANIE */
+/* tablet / mały desktop */
+@media (max-width: 980px) {
   .about__inner {
     flex-direction: column;
-    gap: 40px;
+    gap: 36px;
   }
 
   .about__skills {
@@ -106,36 +159,49 @@
   .about {
     padding: 90px 6%;
   }
+
+  .skills-list {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  .skill__icon {
+    font-size: 2.1rem;
+    width: 36px;
+    height: 36px;
+  }
 }
 
-.skill {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #fff;
-  padding: 10px 16px;
-  border-radius: 12px;
-  font-size: 1rem;
-  cursor: default;
-  transition: all 0.25s ease;
-  backdrop-filter: blur(4px);
+/* mobile */
+@media (max-width: 600px) {
+  .skills-list {
+    /* na telefonie trzy kolumny mogą być ciasne - użyj 2 kolumn */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .skill {
+    padding: 10px 12px;
+    min-height: 56px;
+  }
+
+  .skill__icon {
+    font-size: 1.6rem;
+    width: 32px;
+    height: 32px;
+  }
+
+  .about__title {
+    font-size: 1.6rem;
+  }
+
+  .about__lead {
+    font-size: 1rem;
+  }
 }
 
-.skill__icon {
-  font-size: 3rem; /* 🔥 tu zmieniasz wielkość ikon */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--accent-color, #61dafb); /* domyślny kolor np. React */
-  transition: transform 0.2s ease, color 0.3s ease;
-}
-
-.skill__icon:hover {
-  transform: scale(1.15);
-}
-
-.skill__name {
-  font-size: 0.95rem;
+/* bardzo małe ekrany - 1 kolumna */
+@media (max-width: 360px) {
+  .skills-list {
+    grid-template-columns: 1fr;
+  }
 }

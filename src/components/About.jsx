@@ -1,4 +1,3 @@
-// src/components/About.jsx
 import React from "react";
 import { motion } from "framer-motion";
 import { FaReact, FaJsSquare, FaHtml5, FaCss3Alt } from "react-icons/fa";
@@ -15,10 +14,10 @@ const SKILLS = [
   {
     name: "HTML & CSS",
     icon: (
-      <>
+      <span className="multi-icons" aria-hidden>
         <FaHtml5 />
         <FaCss3Alt />
-      </>
+      </span>
     ),
   },
   { name: "Framer Motion", icon: <SiFramer /> },
@@ -45,7 +44,7 @@ export default function About() {
           </h2>
 
           <p className="about__lead">
-            Cześć — jestem <strong>Grzegorz</strong>, frontend developer
+            Cześć — jestem <strong>Grzegorz</strong>, fullstack developer
             specjalizujący się w budowaniu interfejsów z użyciem <em>React</em>.
             Projektuję przejrzyste, responsywne i wydajne aplikacje, dbając o
             dobre doświadczenie użytkownika.
@@ -68,7 +67,7 @@ export default function About() {
             viewport={{ once: true, amount: 0.2 }}
             variants={{
               hidden: {},
-              visible: { transition: { staggerChildren: 0.08 } },
+              visible: { transition: { staggerChildren: 0.06 } },
             }}
           >
             {SKILLS.map(({ name, icon }) => (
@@ -79,8 +78,8 @@ export default function About() {
                   hidden: { opacity: 0, y: 8 },
                   visible: { opacity: 1, y: 0 },
                 }}
-                whileHover={{ scale: 1.06, y: -4 }}
-                transition={{ type: "spring", stiffness: 300, damping: 18 }}
+                whileHover={{ scale: 1.03, y: -3 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <span className="skill__icon" aria-hidden>
                   {icon}
