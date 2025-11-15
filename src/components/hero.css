@@ -1,3 +1,39 @@
+/* --- HERO: fixes for mobile overlap with header --- */
+/* ensure the page reserves space for a fixed header and avoids scroll overlap */
+:root {
+  --header-height: 72px; /* dopasuj jeśli Twój header ma inną wysokość */
+}
+
+/* If header is fixed, tell browsers to offset scroll-to anchors */
+html {
+  scroll-padding-top: var(--header-height);
+}
+
+/* Add extra top padding to hero to avoid the photo being hidden under header on small screens */
+.hero {
+  padding-top: calc(var(--header-height) + 20px); /* header + breathing room */
+  box-sizing: border-box;
+}
+
+/* Ensure the photo wrapper doesn't overflow upwards and is vertically centered inside hero column layout */
+.hero__photo-wrapper {
+  margin-top: 0; /* usuwa ewentualne negatywne marginesy */
+  transform: none !important; /* anuluj przypadkowe translacje animacją, jeśli były */
+  display: block;
+}
+
+/* On narrow screens ensure the photo sits below header and has comfortable spacing */
+@media (max-width: 880px) {
+  .hero {
+    padding-top: calc(var(--header-height) + 18px);
+    padding-bottom: 36px;
+  }
+  .hero__photo-wrapper {
+    margin-top: 8px;
+    transition: transform 0.25s ease;
+  }
+}
+
 .hero__photo-wrapper {
   position: relative;
   width: 280px;

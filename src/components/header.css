@@ -207,3 +207,13 @@
     gap: 8px;
   }
 }
+/* jeśli header:position:fixed - zapewnij padding-top dla głównego kontenera */
+.site-root {
+  /* możesz dopasować klasę: .app .container itp. */
+  padding-top: var(--header-height);
+}
+
+/* make anchor jumps consistent */
+:target {
+  scroll-margin-top: calc(var(--header-height) + 8px);
+}
