@@ -8,15 +8,18 @@ import {
   FaLinkedin,
 } from "react-icons/fa";
 import "./contact.css";
+import { useTranslation } from "react-i18next";
 
 export default function Contact() {
+  const { t } = useTranslation();
+
   const EMAIL = "barnabaszgaska@gmail.com";
   const INSTAGRAM =
     "https://www.instagram.com/bezpanski_pies/?igsh=aGkya3R0dDJ2Zmp6&utm_source=qr";
   const GITHUB = "https://github.com";
   const LINKEDIN = "https://www.linkedin.com/in/grzegorz-wylegala/";
 
-  const [copyText, setCopyText] = useState("Kopiuj email");
+  const [copyText, setCopyText] = useState(t("contact.copy.copy"));
   const [form, setForm] = useState({ name: "", from: "", message: "" });
 
   function handleChange(e) {
@@ -26,27 +29,26 @@ export default function Contact() {
   function handleCopyEmail() {
     navigator.clipboard?.writeText(EMAIL).then(
       () => {
-        setCopyText("Skopiowano!");
-        setTimeout(() => setCopyText("Kopiuj email"), 2000);
+        setCopyText(t("contact.copy.copied"));
+        setTimeout(() => setCopyText(t("contact.copy.copy")), 2000);
       },
       () => {
-        setCopyText("Kopiowanie nie powiodło się");
-        setTimeout(() => setCopyText("Kopiuj email"), 2000);
+        setCopyText(t("contact.copy.failed"));
+        setTimeout(() => setCopyText(t("contact.copy.copy")), 2000);
       }
     );
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    const subject = encodeURIComponent(
-      `Wiadomość od ${form.name || "Osoba z portfolio"}`
-    );
+    const senderName = form.name || t("contact.form.anonymous");
+    const subjectPrefix = t("contact.mail.subjectPrefix");
+    const subject = encodeURIComponent(`${subjectPrefix} ${senderName}`);
     const body = encodeURIComponent(
-      `${form.message || "(brak treści)"}\n\nOd: ${form.name || ""}\nEmail: ${
-        form.from || ""
-      }`
+      `${form.message || t("contact.mail.emptyBody")}\n\n${t(
+        "contact.mail.fromLabel"
+      )}: ${senderName}\n${t("contact.mail.emailLabel")}: ${form.from || ""}`
     );
-    // otwiera klienta pocztowego
     window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
   }
 
@@ -64,7 +66,7 @@ export default function Contact() {
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        Kontakt
+        {t("contact.title")}
       </motion.h2>
 
       <motion.div
@@ -75,16 +77,16 @@ export default function Contact() {
         transition={{ duration: 0.5, delay: 0.1 }}
       >
         <div className="contact__left">
-          <p className="contact__lead">
-            Masz pytanie albo chcesz porozmawiać o współpracy? Napisz —
-            odpowiadam szybko.
-          </p>
+          <p className="contact__lead">{t("contact.lead")}</p>
 
           <div className="contact__cards">
+            {/* Email */}
             <div className="contact__card">
               <FaEnvelope className="contact__icon" />
               <div>
-                <div className="contact__card-title">Email</div>
+                <div className="contact__card-title">
+                  {t("contact.card.email")}
+                </div>
                 <div className="contact__card-body">
                   <a href={`mailto:${EMAIL}`} className="contact__link">
                     {EMAIL}
@@ -92,7 +94,7 @@ export default function Contact() {
                   <button
                     className="btn-copy"
                     onClick={handleCopyEmail}
-                    aria-label="Kopiuj email"
+                    aria-label={t("contact.copy.aria")}
                   >
                     <FaCopy /> <span>{copyText}</span>
                   </button>
@@ -100,6 +102,7 @@ export default function Contact() {
               </div>
             </div>
 
+            {/* Instagram */}
             <a
               className="contact__card contact__card--link"
               href={INSTAGRAM}
@@ -108,11 +111,14 @@ export default function Contact() {
             >
               <FaInstagram className="contact__icon" />
               <div>
-                <div className="contact__card-title">Instagram</div>
+                <div className="contact__card-title">
+                  {t("contact.card.instagram")}
+                </div>
                 <div className="contact__card-body">@bezpanski_pies</div>
               </div>
             </a>
 
+            {/* GitHub */}
             <a
               className="contact__card contact__card--link"
               href={GITHUB}
@@ -121,7 +127,9 @@ export default function Contact() {
             >
               <FaGithub className="contact__icon" />
               <div>
-                <div className="contact__card-title">GitHub</div>
+                <div className="contact__card-title">
+                  {t("contact.card.github")}
+                </div>
                 <div className="contact__card-body">
                   github.com/bezpanskipies
                 </div>
@@ -137,7 +145,9 @@ export default function Contact() {
             >
               <FaLinkedin className="contact__icon" />
               <div>
-                <div className="contact__card-title">LinkedIn</div>
+                <div className="contact__card-title">
+                  {t("contact.card.linkedin")}
+                </div>
                 <div className="contact__card-body">grzegorz-wylegala</div>
               </div>
             </a>
@@ -146,43 +156,43 @@ export default function Contact() {
 
         <form className="contact__form" onSubmit={handleSubmit}>
           <label>
-            <span>Twoje imię</span>
+            <span>{t("contact.form.labelName")}</span>
             <input
               name="name"
               value={form.name}
               onChange={handleChange}
-              placeholder="Imię i nazwisko"
+              placeholder={t("contact.form.placeholderName")}
             />
           </label>
 
           <label>
-            <span>Twój email</span>
+            <span>{t("contact.form.labelEmail")}</span>
             <input
               name="from"
               value={form.from}
               onChange={handleChange}
-              placeholder="twój@email.com"
+              placeholder={t("contact.form.placeholderEmail")}
               type="email"
             />
           </label>
 
           <label>
-            <span>Wiadomość</span>
+            <span>{t("contact.form.labelMessage")}</span>
             <textarea
               name="message"
               value={form.message}
               onChange={handleChange}
               rows="6"
-              placeholder="Cześć, chciałbym..."
+              placeholder={t("contact.form.placeholderMessage")}
             ></textarea>
           </label>
 
           <div className="contact__form-actions">
             <button type="submit" className="btn-submit">
-              Wyślij (otworzy klienta pocztowego)
+              {t("contact.form.sendWithClient")}
             </button>
             <a className="btn-plain" href={`mailto:${EMAIL}`}>
-              Wyślij maila bez formularza
+              {t("contact.form.sendPlain")}
             </a>
           </div>
         </form>

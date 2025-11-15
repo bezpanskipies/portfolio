@@ -5,14 +5,15 @@ import { FaPython } from "react-icons/fa";
 import { SiTypescript, SiFramer } from "react-icons/si";
 import { MdDevices } from "react-icons/md";
 import "./about.css";
+import { useTranslation, Trans } from "react-i18next";
 
 const SKILLS = [
-  { name: "React", icon: <FaReact /> },
-  { name: "JavaScript", icon: <FaJsSquare /> },
-  { name: "Python", icon: <FaPython /> },
-  { name: "TypeScript", icon: <SiTypescript /> },
+  { key: "skills.react", icon: <FaReact /> },
+  { key: "skills.javascript", icon: <FaJsSquare /> },
+  { key: "skills.python", icon: <FaPython /> },
+  { key: "skills.typescript", icon: <SiTypescript /> },
   {
-    name: "HTML & CSS",
+    key: "skills.htmlcss",
     icon: (
       <span className="multi-icons" aria-hidden>
         <FaHtml5 />
@@ -20,11 +21,13 @@ const SKILLS = [
       </span>
     ),
   },
-  { name: "Framer Motion", icon: <SiFramer /> },
-  { name: "Responsive Design", icon: <MdDevices /> },
+  { key: "skills.framer", icon: <SiFramer /> },
+  { key: "skills.responsive", icon: <MdDevices /> },
 ];
 
 export default function About() {
+  const { t } = useTranslation();
+
   return (
     <section
       id="o-mnie"
@@ -40,25 +43,22 @@ export default function About() {
       >
         <div className="about__text">
           <h2 id="about-title" className="about__title">
-            O mnie
+            {t("about.title")}
           </h2>
 
           <p className="about__lead">
-            Cześć — jestem <strong>Grzegorz</strong>, frontend developer
-            specjalizujący się w budowaniu interfejsów z użyciem <em>React</em>.
-            Projektuję przejrzyste, responsywne i wydajne aplikacje, dbając o
-            dobre doświadczenie użytkownika.
+            <Trans
+              i18nKey="about.lead"
+              components={{ 1: <strong /> }}
+              values={{ name: "Grzegorz" }}
+            />
           </p>
 
-          <p className="about__desc">
-            Pracuję z: React, JavaScript, TypeScript, HTML/CSS, Vite i Framer
-            Motion. Lubię robić czytelne UI, subtelne animacje i rozwiązywać
-            złożone problemy interfejsowe.
-          </p>
+          <p className="about__desc">{t("about.desc")}</p>
         </div>
 
-        <aside className="about__skills" aria-label="Umiejętności">
-          <h3 className="about__skills-title">Umiejętności</h3>
+        <aside className="about__skills" aria-label={t("about.skills.aria")}>
+          <h3 className="about__skills-title">{t("about.skills.title")}</h3>
 
           <motion.ul
             className="skills-list"
@@ -70,10 +70,10 @@ export default function About() {
               visible: { transition: { staggerChildren: 0.06 } },
             }}
           >
-            {SKILLS.map(({ name, icon }) => (
+            {SKILLS.map(({ key, icon }) => (
               <motion.li
                 className="skill"
-                key={name}
+                key={key}
                 variants={{
                   hidden: { opacity: 0, y: 8 },
                   visible: { opacity: 1, y: 0 },
@@ -84,7 +84,7 @@ export default function About() {
                 <span className="skill__icon" aria-hidden>
                   {icon}
                 </span>
-                <span className="skill__name">{name}</span>
+                <span className="skill__name">{t(key)}</span>
               </motion.li>
             ))}
           </motion.ul>

@@ -2,8 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./header.css";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./LanguageSwitcher"; // <- required (see language-switcher.jsx)
 
 export default function Header() {
+  const { t } = useTranslation();
+
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
 
@@ -25,16 +29,16 @@ export default function Header() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // pierwsze wywołanie przy starcie
+    handleScroll(); // initial check
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const links = [
-    { id: "o-mnie", label: "O mnie" },
-    { id: "projekty", label: "Projekty" },
-    { id: "journey", label: "Moja droga" },
-    { id: "kontakt", label: "Kontakt" },
+    { id: "o-mnie", key: "nav.about" },
+    { id: "projekty", key: "nav.projects" },
+    { id: "journey", key: "experience.title" },
+    { id: "kontakt", key: "nav.contact" },
   ];
 
   return (
@@ -42,29 +46,47 @@ export default function Header() {
       <div className="site-header__inner container">
         <div className="brand" aria-hidden>
           <span className="brand__logo" />
-          <span className="brand__name">Bezpański Pies</span>
+          <span className="brand__name">
+            {t("brand.name", "Bezpański Pies")}
+          </span>
         </div>
 
-        <nav className="nav desktop-nav" aria-label="Główna nawigacja">
-          {links.map(({ id, label }) => (
+        <nav
+          className="nav desktop-nav"
+          aria-label={t("nav.aria", "Main navigation")}
+        >
+          {links.map(({ id, key }) => (
             <a
               key={id}
               href={`#${id}`}
               className={`nav__link ${activeSection === id ? "active" : ""}`}
             >
-              {label}
+              {t(key)}
             </a>
           ))}
         </nav>
 
         <div className="header-actions">
           <a className="cta" href="#kontakt">
-            Kontakt
+            {t("header.cta", "Kontakt")}
           </a>
+
+          {/* LanguageSwitcher component (external) */}
+          {/* onChange used to close mobile menu when switching language */}
+          <LanguageSwitcher
+            className="btn-lang"
+            onChange={() => {
+              setOpen(false);
+            }}
+          />
 
           <button
             className="hamburger"
-            aria-label={open ? "Zamknij menu" : "Otwórz menu"}
+            aria-label={
+              open
+                ? t("header.closeMenu", "Close menu")
+                : t("header.openMenu", "Open menu")
+            }
             aria-expanded={open}
             onClick={() => setOpen(!open)}
           >
@@ -89,7 +111,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobilne menu */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {open && (
           <motion.nav
@@ -99,7 +121,7 @@ export default function Header() {
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.18 }}
           >
-            {links.map(({ id, label }) => (
+            {links.map(({ id, key }) => (
               <a
                 key={id}
                 href={`#${id}`}
@@ -108,7 +130,7 @@ export default function Header() {
                 }`}
                 onClick={() => setOpen(false)}
               >
-                {label}
+                {t(key)}
               </a>
             ))}
             <a
@@ -116,8 +138,18 @@ export default function Header() {
               className="mobile-nav__link mobile-cta"
               onClick={() => setOpen(false)}
             >
-              Wyślij wiadomość
+              {t("header.mobileCta", "Wyślij wiadomość")}
             </a>
+
+            {/* Mobile language switcher — close menu then toggle */}
+            <div className="mobile-actions-row">
+              <LanguageSwitcher
+                className="btn-lang mobile-lang"
+                onChange={() => {
+                  setOpen(false);
+                }}
+              />
+            </div>
           </motion.nav>
         )}
       </AnimatePresence>

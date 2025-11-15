@@ -1,0 +1,134 @@
+/* src/components/case-study.css */
+.case {
+  padding: 72px 6%;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 8, 10, 0.02),
+    rgba(0, 0, 0, 0.02)
+  );
+  border-radius: 12px;
+  margin: 32px auto;
+}
+.case__header {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.case__meta {
+  flex: 1 1 auto;
+}
+.case__title {
+  font-size: 1.6rem;
+  margin: 0 0 6px;
+  color: #fff;
+}
+.case__subtitle {
+  margin: 0;
+  color: #cfcfcf;
+}
+
+/* hero image */
+.case__hero img {
+  width: 92px;
+  height: 92px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+}
+
+/* timeline */
+.case__timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* step */
+.case-step {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+.case-step__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 14px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.01),
+    rgba(0, 0, 0, 0.02)
+  );
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 600;
+}
+.case-step__index {
+  min-width: 30px;
+  height: 30px;
+  display: inline-grid;
+  place-items: center;
+  background: linear-gradient(135deg, #586eff, #ff50b4);
+  color: white;
+  border-radius: 8px;
+  font-weight: 700;
+}
+.case-step__title {
+  flex: 1 1 auto;
+}
+.case-step__chev {
+  opacity: 0.8;
+}
+
+/* body */
+.case-step__body {
+  padding: 12px 14px 16px 14px;
+  color: #dcdcdc;
+  line-height: 1.5;
+  font-size: 0.98rem;
+}
+.case-step__media img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+/* CTA row */
+.case__cta-row {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.btn {
+  display: inline-block;
+  padding: 8px 12px;
+  background: #586eff;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* responsive */
+@media (max-width: 880px) {
+  .case__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .case__hero img {
+    width: 72px;
+    height: 72px;
+  }
+}

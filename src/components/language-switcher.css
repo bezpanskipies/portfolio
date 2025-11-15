@@ -1,0 +1,59 @@
+/* language-switcher.css */
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 36px;
+  padding: 0 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(0, 0, 0, 0.04)
+  );
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.lang-switcher:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(88, 110, 255, 0.06);
+}
+
+.lang-switcher__inner {
+  perspective: 600px;
+  width: 28px;
+  height: 22px;
+  display: inline-block;
+  text-align: center;
+}
+.lang-switcher__letter {
+  display: inline-block;
+  font-size: 0.85rem;
+  line-height: 22px;
+  backface-visibility: hidden;
+}
+
+.lang-switcher.anim {
+  box-shadow: 0 8px 28px rgba(88, 110, 255, 0.1);
+}
+
+/* small mobile variant */
+.lang-switcher.mobile {
+  min-width: 52px;
+  height: 38px;
+}
+
+/* visually hidden for screen readers */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}

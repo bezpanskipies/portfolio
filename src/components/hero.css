@@ -180,3 +180,83 @@
     width: clamp(160px, 34vw, 260px);
   }
 }
+
+/* language switcher styles */
+.btn-lang {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 36px;
+  padding: 0 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.03),
+    rgba(0, 0, 0, 0.06)
+  );
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.btn-lang:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(88, 110, 255, 0.08);
+}
+
+.lang-inner {
+  display: inline-block;
+  perspective: 600px;
+  width: 28px;
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+}
+
+.lang-letter {
+  display: inline-block;
+  font-size: 0.82rem;
+  letter-spacing: 0.6px;
+  user-select: none;
+  transform-origin: center;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+/* small pulse while animating */
+.btn-lang.animating {
+  box-shadow: 0 8px 28px rgba(88, 110, 255, 0.12);
+}
+
+/* Mobile variant */
+.mobile-lang {
+  width: 54px;
+  height: 38px;
+  padding: 0;
+  border-radius: 6px;
+  margin-top: 6px;
+}
+
+/* helper for visually hidden text (screen readers) */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+/* place mobile actions row nicely */
+.mobile-actions-row {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 6px;
+}

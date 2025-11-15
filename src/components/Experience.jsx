@@ -1,26 +1,25 @@
 import React from "react";
 import { motion } from "framer-motion";
 import "./experience.css";
+import { useTranslation } from "react-i18next";
 
 const journey = [
   {
     id: 1,
     side: "left",
     year: "2015–2024",
-    title: "Poliglota i tłumacz",
-    description:
-      "Przez niemal dekadę pracowałem z językami obcymi — uczyłem się, tłumaczyłem i współpracowałem z ludźmi z różnych krajów. To nauczyło mnie komunikacji, precyzji i cierpliwości – rzeczy niezbędnych także w programowaniu.",
+    titleKey: "experience.item1.title",
+    descriptionKey: "experience.item1.desc",
     icon: "🌍",
   },
   {
     id: 2,
     side: "right",
     year: "Aug 2025",
-    title: "Responsive Web Design",
-    subtitle: "freeCodeCamp",
-    description:
-      "Podstawy HTML, CSS i responsywnego projektowania. Projektowanie stron przyjaznych dla użytkownika i dostępnych na różnych urządzeniach.",
-    credential: "Credential ID: bezpanski_pies-rwd",
+    titleKey: "experience.item2.title",
+    subtitleKey: "experience.item2.subtitle",
+    descriptionKey: "experience.item2.desc",
+    credentialKey: "experience.item2.credential",
     link: "#",
     logo: "https://cdn.freecodecamp.org/testable-projects-fcc/images/fcc_secondary.svg",
   },
@@ -28,11 +27,10 @@ const journey = [
     id: 3,
     side: "right",
     year: "Sep 2025",
-    title: "The Complete Full-Stack Web Development Bootcamp",
-    subtitle: "Udemy",
-    description:
-      "Intensywny kurs obejmujący HTML, CSS, JavaScript, Node.js, Express i MongoDB. Pierwsze pełne aplikacje full-stack.",
-    credential: "Credential ID: ude.my/UC-569776df-da78-4e52-84f3-5f4c2aedaeba",
+    titleKey: "experience.item3.title",
+    subtitleKey: "experience.item3.subtitle",
+    descriptionKey: "experience.item3.desc",
+    credentialKey: "experience.item3.credential",
     link: "#",
     logo: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Udemy_logo.svg",
   },
@@ -40,11 +38,10 @@ const journey = [
     id: 4,
     side: "right",
     year: "Oct 2025",
-    title: "The Complete JavaScript Course 2025: From Zero to Expert!",
-    subtitle: "Udemy",
-    description:
-      "Zaawansowany kurs JavaScript obejmujący DOM, async JS, API i nowoczesne wzorce. Solidne podstawy dla pracy z React.",
-    credential: "Credential ID: UC-bd907d8a-093e-47a6-9ead-878fbf1aa294",
+    titleKey: "experience.item4.title",
+    subtitleKey: "experience.item4.subtitle",
+    descriptionKey: "experience.item4.desc",
+    credentialKey: "experience.item4.credential",
     link: "#",
     logo: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Udemy_logo.svg",
   },
@@ -52,14 +49,15 @@ const journey = [
     id: 5,
     side: "left",
     year: "2025–",
-    title: "Frontend Developer (React)",
-    description:
-      "Rozwijam swoje portfolio, uczę się Reacta, TypeScriptu i Framer Motion. Buduję własne projekty i przygotowuję się do pierwszej roli w branży IT.",
+    titleKey: "experience.item5.title",
+    descriptionKey: "experience.item5.desc",
     icon: "💻",
   },
 ];
 
 export default function Experience() {
+  const { t } = useTranslation();
+
   return (
     <section id="journey" className="experience container">
       <motion.h2
@@ -69,7 +67,7 @@ export default function Experience() {
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        Moja droga
+        {t("experience.title")}
       </motion.h2>
 
       <div className="timeline">
@@ -95,7 +93,12 @@ export default function Experience() {
                 viewport={{ once: false, amount: 0.7 }}
               >
                 {item.logo ? (
-                  <img src={item.logo} alt={item.subtitle || item.title} />
+                  <img
+                    src={item.logo}
+                    alt={
+                      item.subtitleKey ? t(item.subtitleKey) : t(item.titleKey)
+                    }
+                  />
                 ) : (
                   <span>{item.icon}</span>
                 )}
@@ -103,13 +106,13 @@ export default function Experience() {
 
               <div className="timeline-box">
                 <span className="timeline-year">{item.year}</span>
-                <h3 className="timeline-title">{item.title}</h3>
-                {item.subtitle && (
-                  <p className="timeline-subtitle">{item.subtitle}</p>
+                <h3 className="timeline-title">{t(item.titleKey)}</h3>
+                {item.subtitleKey && (
+                  <p className="timeline-subtitle">{t(item.subtitleKey)}</p>
                 )}
-                <p className="timeline-desc">{item.description}</p>
-                {item.credential && (
-                  <p className="timeline-cred">{item.credential}</p>
+                <p className="timeline-desc">{t(item.descriptionKey)}</p>
+                {item.credentialKey && (
+                  <p className="timeline-cred">{t(item.credentialKey)}</p>
                 )}
                 {item.link && (
                   <a
@@ -118,7 +121,7 @@ export default function Experience() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Show credential →
+                    {t("experience.showCredential")} →
                   </a>
                 )}
               </div>

@@ -1,98 +1,84 @@
-// src/components/Projects.jsx
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./projects.css";
-import Kappa from "../assets/kappalogo.jpeg"; // ścieżka względem pliku Projects.jsx
+import Kappa from "../assets/kappalogo.jpeg";
+import { useTranslation } from "react-i18next";
 
-/**
- * DANE TESTOWE - zastąp własnymi (img może być lokalnym importem z /src/assets lub URL)
- * pole `category` służy do filtrowania
- * pola live/repo mogą być null lub href
- */
 const PROJECTS = [
   {
     id: 1,
-    title: "Projekt A",
-    subtitle: "Aplikacja React • UI/UX",
+    titleKey: "projects.p1.title",
+    subtitleKey: "projects.p1.subtitle",
+    descriptionKey: "projects.p1.desc",
     img: "https://picsum.photos/seed/p1/1200/800",
     href: "#",
     live: null,
     repo: null,
     category: "UI",
-    description:
-      "Krótki opis projektu A. Tutaj opisz problem, technologie i rolę.",
   },
   {
     id: 2,
-    title: "Projekt B",
-    subtitle: "Dashboard • Charts",
+    titleKey: "projects.p2.title",
+    subtitleKey: "projects.p2.subtitle",
+    descriptionKey: "projects.p2.desc",
     img: "https://picsum.photos/seed/p2/1200/800",
     href: "#",
     live: null,
     repo: null,
     category: "Dashboard",
-    description:
-      "Krótki opis projektu B — integracje, wydajność i rozwiązania UI.",
   },
   {
     id: 3,
-    title: "Projekt C",
-    subtitle: "Landing Page • Performance",
+    titleKey: "projects.p3.title",
+    subtitleKey: "projects.p3.subtitle",
+    descriptionKey: "projects.p3.desc",
     img: "https://picsum.photos/seed/p3/1200/800",
     href: "#",
     live: null,
     repo: null,
     category: "Landing",
-    description: "Krótki opis projektu C — optymalizacja, SEO i animacje.",
   },
-
-  /* --- DODANE PROJEKTY --- */
-
   {
     id: 4,
-    title: "PyData Tool",
-    subtitle: "Narzędzie analizy danych • Python",
+    titleKey: "projects.p4.title",
+    subtitleKey: "projects.p4.subtitle",
+    descriptionKey: "projects.p4.desc",
     img: "https://picsum.photos/seed/p4/1200/800",
     href: "#",
     live: null,
     repo: null,
     category: "Python",
-    description:
-      "Projekt w Pythonie: pipeline do przetwarzania i wizualizacji danych. Wykorzystuje pandas, matplotlib/plotly oraz skrypty do automatycznego przetwarzania danych. Idealny jako demo umiejętności backendowych i pracy z danymi.",
   },
   {
     id: 5,
-    title: "OpenAPI Connector",
-    subtitle: "Integracja z zewnętrznym API",
+    titleKey: "projects.p5.title",
+    subtitleKey: "projects.p5.subtitle",
+    descriptionKey: "projects.p5.desc",
     img: "https://picsum.photos/seed/p5/1200/800",
     href: "#",
     live: null,
     repo: null,
     category: "API",
-    description:
-      "Projekt pokazujący bezpieczne łączenie się z REST/GraphQL API, caching odpowiedzi, obsługę błędów i autoryzację. Zaimplementowano retry/backoff i testy integracyjne (można dodać demo w postaci małego frontendowego klienta).",
   },
   {
     id: 6,
-    title: "Kappa Nihongo",
-    subtitle: "Strona do nauki japońskiego",
+    titleKey: "projects.p6.title",
+    subtitleKey: "projects.p6.subtitle",
+    descriptionKey: "projects.p6.desc",
     img: Kappa,
     href: "#",
     live: null,
     repo: null,
     category: "Edu",
-    description:
-      "Kappa Nihongo — projekt, który chcesz stworzyć: interaktywne lekcje, spaced repetition dla słówek, quizy i ćwiczenia z pisma (hiragana/katakana). Frontend w React, backend (opcjonalnie) w Node/Python. Cel: pomoc początkującym w nauce japońskiego w przyjemny sposób.",
   },
 ];
 
-// lista kategorii (All + unikatowe kategorie z danych)
 const CATEGORIES = [
   "All",
   ...Array.from(new Set(PROJECTS.map((p) => p.category))),
 ];
 
-function ProjectCard({ project, onOpen }) {
+function ProjectCard({ project, onOpen, t }) {
   return (
     <motion.article
       className="proj-card"
@@ -107,67 +93,21 @@ function ProjectCard({ project, onOpen }) {
       onKeyDown={(e) => {
         if (e.key === "Enter") onOpen(project);
       }}
-      aria-label={`Otwórz projekt ${project.title}`}
+      aria-label={t("projects.openProject", { title: t(project.titleKey) })}
     >
       <div className="proj-card__media">
-        <img src={project.img} alt={project.title} loading="lazy" />
-        <div className="proj-card__overlay">
-          <div className="proj-card__overlay-inner">
-            {/* Przyciski overlay - nieblokujące kliknięcia karty (klik otwiera modal, przyciski mają swoje cele) */}
-            {project.live ? (
-              <a
-                className="proj-btn proj-btn--live"
-                href={project.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                aria-label={`Otwórz live ${project.title}`}
-              >
-                Live
-              </a>
-            ) : (
-              <button
-                className="proj-btn proj-btn--disabled"
-                onClick={(e) => e.stopPropagation()}
-                aria-hidden
-              >
-                Live
-              </button>
-            )}
-
-            {project.repo ? (
-              <a
-                className="proj-btn proj-btn--repo"
-                href={project.repo}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                aria-label={`Otwórz repozytorium ${project.title}`}
-              >
-                Repo
-              </a>
-            ) : (
-              <button
-                className="proj-btn proj-btn--disabled"
-                onClick={(e) => e.stopPropagation()}
-                aria-hidden
-              >
-                Repo
-              </button>
-            )}
-          </div>
-        </div>
+        <img src={project.img} alt={t(project.titleKey)} loading="lazy" />
       </div>
 
       <div className="proj-card__body">
-        <h4 className="proj-card__title">{project.title}</h4>
-        <p className="proj-card__subtitle">{project.subtitle}</p>
+        <h4 className="proj-card__title">{t(project.titleKey)}</h4>
+        <p className="proj-card__subtitle">{t(project.subtitleKey)}</p>
       </div>
     </motion.article>
   );
 }
 
-function ProjectModal({ project, onClose }) {
+function ProjectModal({ project, onClose, t }) {
   return (
     <AnimatePresence>
       {project && (
@@ -179,7 +119,7 @@ function ProjectModal({ project, onClose }) {
           onClick={onClose}
           role="dialog"
           aria-modal="true"
-          aria-label={`${project.title} details`}
+          aria-label={`${t(project.titleKey)} details`}
         >
           <motion.div
             className="proj-modal__card"
@@ -190,36 +130,36 @@ function ProjectModal({ project, onClose }) {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="proj-modal__media">
-              <img src={project.img} alt={project.title} loading="lazy" />
+              <img src={project.img} alt={t(project.titleKey)} loading="lazy" />
             </div>
             <div className="proj-modal__body">
-              <h3>{project.title}</h3>
-              <p className="proj-modal__subtitle">{project.subtitle}</p>
-              <p className="proj-modal__desc">{project.description}</p>
+              <h3>{t(project.titleKey)}</h3>
+              <p className="proj-modal__subtitle">{t(project.subtitleKey)}</p>
+              <p className="proj-modal__desc">{t(project.descriptionKey)}</p>
 
               <div className="proj-modal__actions">
-                {project.live ? (
+                {project.live && (
                   <a
                     className="proj-btn proj-btn--live"
                     href={project.live}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Otwórz Live
+                    {t("projects.live")}
                   </a>
-                ) : null}
-                {project.repo ? (
+                )}
+                {project.repo && (
                   <a
                     className="proj-btn proj-btn--repo"
                     href={project.repo}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Repo
+                    {t("projects.repo")}
                   </a>
-                ) : null}
+                )}
                 <button className="proj-btn proj-btn--close" onClick={onClose}>
-                  Zamknij
+                  {t("projects.close")}
                 </button>
               </div>
             </div>
@@ -231,6 +171,7 @@ function ProjectModal({ project, onClose }) {
 }
 
 export default function Projects() {
+  const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState("All");
   const [opened, setOpened] = useState(null);
 
@@ -247,18 +188,15 @@ export default function Projects() {
       aria-labelledby="projects-title"
     >
       <h2 id="projects-title" className="projects__title">
-        Projekty
+        {t("projects.title")}
       </h2>
-
-      <p className="projects__lead">
-        Wybrane realizacje — kliknij kartę by zobaczyć szczegóły.
-      </p>
+      <p className="projects__lead">{t("projects.lead")}</p>
 
       <div className="projects__controls">
         <div
           className="projects__filters"
           role="tablist"
-          aria-label="Filtr projektów"
+          aria-label={t("projects.filtersAria")}
         >
           {CATEGORIES.map((cat) => (
             <button
@@ -266,7 +204,7 @@ export default function Projects() {
               className={`filter-btn ${activeCategory === cat ? "active" : ""}`}
               onClick={() => setActiveCategory(cat)}
             >
-              {cat}
+              {t(`projects.categories.${cat}`, cat)}
             </button>
           ))}
         </div>
@@ -274,15 +212,11 @@ export default function Projects() {
 
       <div className="projects__grid">
         {list.map((p) => (
-          <ProjectCard
-            key={p.id}
-            project={p}
-            onOpen={(prj) => setOpened(prj)}
-          />
+          <ProjectCard key={p.id} project={p} onOpen={setOpened} t={t} />
         ))}
       </div>
 
-      <ProjectModal project={opened} onClose={() => setOpened(null)} />
+      <ProjectModal project={opened} onClose={() => setOpened(null)} t={t} />
     </section>
   );
 }

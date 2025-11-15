@@ -2,8 +2,11 @@ import React from "react";
 import { motion } from "framer-motion";
 import ProfilePic from "../assets/main.jpg";
 import "./hero.css";
+import { useTranslation, Trans } from "react-i18next";
 
-function Hero() {
+export default function Hero() {
+  const { t } = useTranslation();
+
   return (
     <section className="hero">
       <motion.div
@@ -16,7 +19,7 @@ function Hero() {
           <img
             className="hero__photo"
             src={ProfilePic}
-            alt="Zdjęcie Grzegorza Gudzińskiego"
+            alt={t("hero.photoAlt", "Photo of Grzegorz")}
           />
           <div className="hero__photo-glow" />
         </div>
@@ -28,14 +31,14 @@ function Hero() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
       >
-        <h1 className="hero__name">Grzegorz Wylegała</h1>
-        <p className="hero__role">Fullstack Developer • React • JS</p>
+        <h1 className="hero__name">{t("hero.name", "Grzegorz Wylegała")}</h1>
+        <p className="hero__role">
+          {t("hero.role", "Fullstack Developer • React • JS")}
+        </p>
         <p className="hero__intro">
-          Tworzę eleganckie interfejsy i dbam o dobre doświadczenie użytkowników
+          <Trans i18nKey="hero.intro" components={{ 1: <strong /> }} />
         </p>
       </motion.div>
     </section>
   );
 }
-
-export default Hero;
