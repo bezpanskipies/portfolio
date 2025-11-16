@@ -33,7 +33,7 @@ export default function Hero() {
       >
         <h1 className="hero__name">{t("hero.name", "Grzegorz Wylegała")}</h1>
         <p className="hero__role">
-          {t("hero.role", "Fullstack Developer • React • JS")}
+          {t("hero.role", "Fullstack Developer • Cloud • React • JS")}
         </p>
         <p className="hero__intro">
           <Trans i18nKey="hero.intro" components={{ 1: <strong /> }} />

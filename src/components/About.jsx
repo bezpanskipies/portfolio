@@ -1,29 +1,147 @@
+// About.jsx
 import React from "react";
 import { motion } from "framer-motion";
-import { FaReact, FaJsSquare, FaHtml5, FaCss3Alt } from "react-icons/fa";
-import { FaPython } from "react-icons/fa";
+import {
+  FaReact,
+  FaPython,
+  FaDatabase,
+  FaServer,
+  FaCloud,
+  FaCertificate,
+} from "react-icons/fa";
 import { SiTypescript, SiFramer } from "react-icons/si";
 import { MdDevices } from "react-icons/md";
 import "./about.css";
 import { useTranslation, Trans } from "react-i18next";
 
-const SKILLS = [
-  { key: "skills.react", icon: <FaReact /> },
-  { key: "skills.javascript", icon: <FaJsSquare /> },
-  { key: "skills.python", icon: <FaPython /> },
-  { key: "skills.typescript", icon: <SiTypescript /> },
+const SECTIONS = [
   {
-    key: "skills.htmlcss",
-    icon: (
-      <span className="multi-icons" aria-hidden>
-        <FaHtml5 />
-        <FaCss3Alt />
-      </span>
-    ),
+    id: "core",
+    titleKey: "about.sections.core.title",
+    defaultTitle: "Frontend · Backend · Databases",
+    icon: FaReact,
+    items: [
+      {
+        title: "Frontend",
+        desc: "HTML, CSS, Flex, Grid, Bootstrap, Tailwind, SASS, jQuerry, React",
+      },
+      {
+        title: "Backend",
+        desc: "JavaScript, Node.js / Express, REST APIs, JSON, Postman",
+      },
+      {
+        title: "Databases",
+        desc: "PostgreSQL, MySQL, MongoDB — projektowanie schematów, indeksy, migracje",
+      },
+    ],
   },
-  { key: "skills.framer", icon: <SiFramer /> },
-  { key: "skills.responsive", icon: <MdDevices /> },
+  {
+    id: "python",
+    titleKey: "about.sections.python.title",
+    defaultTitle: "Python",
+    icon: FaPython,
+    items: [
+      {
+        title: "Core",
+        desc: "OOP, async/await, generators, packaging (venv/poetry/pip)",
+      },
+      {
+        title: "Frameworks",
+        desc: "Flask / FastAPI / Django",
+      },
+      { title: "Tests & Tooling", desc: "pytest, linting, formatting" },
+    ],
+  },
+  {
+    id: "datasci",
+    titleKey: "about.sections.datasci.title",
+    defaultTitle: "Data Science",
+    icon: SiFramer,
+    items: [
+      {
+        title: "Libraries",
+        desc: "numpy, pandas, scikit-learn, matplotlib — ETL, EDA, feature engineering",
+      },
+      {
+        title: "Modeling",
+        desc: "Regresja, klasyfikacja, walidacja krzyżowa, pipeline'y",
+      },
+      {
+        title: "Projekty",
+        desc: "Tutaj możesz dodać linki do projektów / repozytoriów",
+      },
+    ],
+  },
+  {
+    id: "devops",
+    titleKey: "about.sections.devops.title",
+    defaultTitle: "DevOps",
+    icon: FaServer,
+    items: [
+      {
+        title: "CI / CD",
+        desc: "GitHub Actions / GitLab CI — automatyzacja buildów i deployów",
+      },
+      {
+        title: "Containers",
+        desc: "Docker, Kubernetes, Jenkins",
+      },
+      {
+        title: "Monitoring",
+        desc: "Prometheus, Grafana",
+      },
+    ],
+  },
+  {
+    id: "cloud",
+    titleKey: "about.sections.cloud.title",
+    defaultTitle: "Cloud",
+    icon: FaCloud,
+    items: [
+      {
+        title: "Platformy",
+        desc: "AWS / GCP / Azure",
+      },
+      { title: "IaC", desc: "Terraform / CloudFormation" },
+    ],
+  },
+  {
+    id: "certs",
+    titleKey: "about.sections.certs.title",
+    defaultTitle: "Certyfikaty",
+    icon: FaCertificate,
+    items: [
+      {
+        title: "Posiadane",
+        desc: "Responsive Web Design - Free Code Camp / Complete Full Stack Web Developement - Udemy / Complete JavaScript Course - Udemy",
+      },
+      {
+        title: "W trakcie",
+        desc: "Tu możesz wpisać certyfikaty, które planujesz zdobyć",
+      },
+    ],
+  },
 ];
+
+function Collapsible({ id, TitleIcon, title, children }) {
+  return (
+    <details className="about-details" id={id}>
+      <summary className="about-summary">
+        <span className="about-summary-left">
+          {TitleIcon && (
+            <TitleIcon className="about-summary-icon" aria-hidden="true" />
+          )}
+          <span className="about-summary-title">{title}</span>
+        </span>
+        <span className="about-summary-right" aria-hidden="true">
+          ▸
+        </span>
+      </summary>
+
+      <div className="about-detail-content">{children}</div>
+    </details>
+  );
+}
 
 export default function About() {
   const { t } = useTranslation();
@@ -36,9 +154,9 @@ export default function About() {
     >
       <motion.div
         className="about__inner"
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.22 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <div className="about__text">
@@ -60,34 +178,34 @@ export default function About() {
         <aside className="about__skills" aria-label={t("about.skills.aria")}>
           <h3 className="about__skills-title">{t("about.skills.title")}</h3>
 
-          <motion.ul
-            className="skills-list"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: 0.06 } },
-            }}
-          >
-            {SKILLS.map(({ key, icon }) => (
-              <motion.li
-                className="skill"
-                key={key}
-                variants={{
-                  hidden: { opacity: 0, y: 8 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                whileHover={{ scale: 1.03, y: -3 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                <span className="skill__icon" aria-hidden>
-                  {icon}
-                </span>
-                <span className="skill__name">{t(key)}</span>
-              </motion.li>
-            ))}
-          </motion.ul>
+          <div className="about-sections">
+            {SECTIONS.map((sec, idx) => {
+              const Icon = sec.icon;
+              const title = t(sec.titleKey, { defaultValue: sec.defaultTitle });
+              return (
+                <motion.div
+                  key={sec.id}
+                  initial={{ opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.45, delay: 0.04 * idx }}
+                >
+                  <Collapsible id={sec.id} TitleIcon={Icon} title={title}>
+                    <ul className="section-items">
+                      {sec.items.map((it, i) => (
+                        <li key={i} className="section-item">
+                          <strong className="section-item-title">
+                            {it.title}:
+                          </strong>
+                          <span className="section-item-desc">{it.desc}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </Collapsible>
+                </motion.div>
+              );
+            })}
+          </div>
         </aside>
       </motion.div>
     </section>
